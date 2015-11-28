@@ -95,6 +95,7 @@ class KVideoDown{
 			if(!is_dir($less['lesson'])){
 				mkdir($less['lesson']);
 			}
+			echo $less['lesson']."start------->\r\n";
 			foreach($less['videoInfo'] as $video){
 				$filename = $less['lesson'].'/'.$video['title'].".mp4";
 				if(!file_exists($filename)){
@@ -105,10 +106,11 @@ class KVideoDown{
 					$tp = @fopen($filename, 'a');
 					fwrite($tp, $v);
 					fclose($tp);
+					echo $video['title'].".mp4 completed!\r\n";
 				}
 				// exit;
 			}
-			
+			echo $less['lesson']."end-------->\r\n";
 		}
 
 
@@ -116,11 +118,12 @@ class KVideoDown{
 	}
 }
 
-$sourceUrl = 'http://www.kuaixuewang.com/dev/list-4-3.html';
+// $sourceUrl = 'http://www.kuaixuewang.com/dev/list-4-3.html';
+$sourceUrl = 'http://www.kuaixuewang.com/dev/list-4-2.html';
 $cookie = 'cover=1; PHPSESSID=j8jm3ngt31i88hm047uva9eb16; hdcmsid=fjoql115a3smds88n78qnnm0k5';
 //
 $d = new KVideoDown($sourceUrl,$cookie);
-@ini_set('memory_limit','256M');
+@ini_set('memory_limit','-1');
 set_time_limit(0);
 $d->save_video();
 // $urls = $d->get_play_urls();
